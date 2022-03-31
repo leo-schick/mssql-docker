@@ -1,6 +1,6 @@
 # Microsoft SQL Server Docker image
 
-Unofficial images for Microsoft SQL Server on Linux for Docker Engine.
+Unofficial images for [Microsoft SQL Server](http://www.microsoft.com/sqlserver) on Linux for Docker Engine.
 
 In comparison to the [official image](https://hub.docker.com/_/microsoft-mssql-server) this image supports multimple build modes.
 
@@ -96,4 +96,4 @@ docker run -e 'ACCEPT_EULA=y' mssql
 
 The docker file is released under the [MIT](LICENSE) license.
 
-For Microsoft SQL Server, please have a look at the Microsoft [End-User Licensing Agreement](https://go.microsoft.com/fwlink/?LinkId=746388).
+For Microsoft SQL Server, please have a look at the Microsoft [End-User Licensing Agreement](https://go.microsoft.com/fwlink/?LinkId=746388) and [Microsoft SQL Server](http://www.microsoft.com/sqlserver)
