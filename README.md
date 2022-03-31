@@ -2,7 +2,7 @@
 
 Unofficial images for [Microsoft SQL Server](http://www.microsoft.com/sqlserver) on Linux for Docker Engine.
 
-In comparison to the [official image](https://hub.docker.com/_/microsoft-mssql-server) this image supports multimple build modes.
+In comparison to the [official image](https://hub.docker.com/_/microsoft-mssql-server) this image supports custom build arguments e.g. installing Full Text Search or Polybase.
 
 &nbsp;
 
@@ -36,24 +36,25 @@ In addition, the following build args are available:
 | Argument         | Description
 | ---------------- | -------------------------
 | ACCEPT_EULA      | Set the ACCEPT_EULA variable to any value to confirm your acceptance of the [End-User Licensing Agreement](https://go.microsoft.com/fwlink/?LinkId=746388). Required setting for the SQL Server image.
-| MSSQL_USER       | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set.
-| MSSQL_PASSWORD   | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set.
-| MSSQL_DATABASE   | Creates an database in recovery mode SIMPLE. This requires `SQL_INSTALL_TOOLS` to be set.
+| MSSQL_USER       | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| MSSQL_PASSWORD   | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| MSSQL_DATABASE   | Creates an database in recovery mode SIMPLE. This requires `SQL_INSTALL_TOOLS` to be set on build time.
 
+&nbsp;
 
 # Sample build guide
 
 ## Minimal build
 
 ``` shell
-docker build -t mssql \
+docker build . -t mssql \
     --build-arg ACCEPT_EULA=y
 ```
 
 ## Build with recommended settings
 
 ``` shell
-docker build -t mssql \
+docker build . -t mssql \
     --build-arg ACCEPT_EULA=y \
     --build-arg MSSQL_PID='Developer' \
     --build-arg MSSQL_SA_PASSWORD='<YourStrong!Passw0rd>'
@@ -71,23 +72,19 @@ docker build . -t mssql \
     --build-arg SQL_INSTALL_POLYBASE=1
 ```
 
-### Sample build with custom user and database
-
-``` shell
-docker build . -t mssql \
-    --build-arg ACCEPT_EULA=y \
-    --build-arg MSSQL_PID='Developer' \
-    --build-arg SQL_INSTALL_TOOLS=1 \
-    --build-arg SQL_INSTALL_USER=MySysAdminUser \
-    --build-arg SQL_INSTALL_USER_PASSWORD=my!Se3u8e$Passw0rd \
-    --build-arg SQL_INSTALL_DATABASE=UserDatabase
-```
+&nbsp;
 
 # Starting the image
 
 You need to provide the `ACCEPT_EULA` environment variable when starting the image:
 ``` shell
 docker run -e 'ACCEPT_EULA=y' mssql
+```
+
+
+You can define a custom user, password and database on run time. This requires that you build the docker image with build arg `SQL_INSTALL_TOOLS`:
+``` shell
+docker run -e 'ACCEPT_EULA=y' -e 'MSSQL_USER=MySysAdminUser' -e 'MSSQL_PASSWORD=my!Se3u8e$Passw0rd' -e 'MSSQL_DATABASE=MyUserDatabase' mssql
 ```
 
 &nbsp;
