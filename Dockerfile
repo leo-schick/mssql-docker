@@ -36,7 +36,6 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     mssql-server \
     ${SQL_INSTALL_TOOLS:+mssql-tools} ${SQL_INSTALL_TOOLS:+unixodbc-dev} \
-    ${SQL_INSTALL_AGENT:+mssql-server-agent} \
     ${SQL_INSTALL_FULLTEXT:+mssql-server-fts} \
     ${SQL_INSTALL_POLYBASE:+mssql-server-polybase} \
     ${SQL_INSTALL_POLYBASE_HADOOP:+mssql-server-polybase-hadoop}
@@ -50,7 +49,13 @@ ENV MSSQL_SA_PASSWORD ${MSSQL_SA_PASSWORD}
 
 ENV SQL_INSTALL_POLYBASE ${SQL_INSTALL_POLYBASE}
 
-CMD if [ -f /opt/mssql-tools/bin/sqlcmd ]; \
+CMD \
+    # config mssql server
+    if [ ! -z $MSSQL_SQLAGENT_ENABLED ]; then \
+        /opt/mssql/bin/mssql-conf set sqlagent.enabled true; \
+        fi && \
+    # start mssql server
+    if [ -f /opt/mssql-tools/bin/sqlcmd ]; \
     then \
         /opt/mssql/bin/sqlservr & sleep 20 \
             && if [ ! -z $SQL_INSTALL_POLYBASE ]; then \

@@ -24,7 +24,6 @@ In addition, the following build args are available:
 | Argument                    | Description
 | --------------------------- | -------------------------
 | SQL_INSTALL_TOOLS           | Install SQL Server Tools. Package `mssq-tools` (recommended).
-| SQL_INSTALL_AGENT           | Install SQL Server Agent (recommended). Package `mssql-server-agent`
 | SQL_INSTALL_FULLTEXT        | Install SQL Server Full Text Search (optional). Package `mssql-server-fts`
 | SQL_INSTALL_POLYBASE        | Install SQL Server Polybase extension. Package `mssql-server-polybase`
 | SQL_INSTALL_POLYBASE_HADOOP | Install SQL Server Polybase Hadoop extension. Package `mssql-server-polybase-hadoop` with the missing package `mssql-zulu-jre-*.deb`
@@ -33,12 +32,13 @@ In addition, the following build args are available:
 
 # Environment variables
 
-| Argument         | Description
-| ---------------- | -------------------------
-| ACCEPT_EULA      | Set the ACCEPT_EULA variable to any value to confirm your acceptance of the [End-User Licensing Agreement](https://go.microsoft.com/fwlink/?LinkId=746388). Required setting for the SQL Server image.
-| MSSQL_USER       | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
-| MSSQL_PASSWORD   | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
-| MSSQL_DATABASE   | Creates an database in recovery mode SIMPLE. This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| Argument               | Description
+| ---------------------- | -------------------------
+| ACCEPT_EULA            | Set the ACCEPT_EULA variable to any value to confirm your acceptance of the [End-User Licensing Agreement](https://go.microsoft.com/fwlink/?LinkId=746388). Required setting for the SQL Server image.
+| MSSQL_USER             | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| MSSQL_PASSWORD         | Create an additional user with sysadmin privileges (optional). This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| MSSQL_DATABASE         | Creates an database in recovery mode SIMPLE. This requires `SQL_INSTALL_TOOLS` to be set on build time.
+| MSSQL_SQLAGENT_ENABLED | If the SQL Server Agent shall be enabled. By default it will be not enabled.
 
 &nbsp;
 
